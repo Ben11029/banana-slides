@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: banana-slides
+    env: docker
+    dockerfilePath: ./Dockerfile.allinone
+    dockerContext: .
+    plan: free # 可选: free, starter
+    region: oregon # 可选: oregon, frankfurt, singapore, ohio
+    healthCheckPath: /health
+    envVars:
+      - key: AI_PROVIDER_FORMAT
+        value: gemini # 或 openai
+      - key: GOOGLE_API_KEY
+        sync: false # 部署时在 Render 控制台填写
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_API_BASE
+        value: https://api.openai.com/v1
+    # 如果升级为付费套餐并需要持久化存储数据库与上传文件，可取消以下注释：
+    # disk:
+    #   name: banana-data
+    #   mountPath: /app/backend/instance
+    #   sizeGB: 1
